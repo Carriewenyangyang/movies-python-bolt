@@ -163,6 +163,23 @@ def vote_in_movie(title):
 
     return Response(dumps({"updates": updates}), mimetype="application/json")
 
+@app.route("/movie/<title>/cancel", methods=["POST"])
+def cancel_in_movie(title):
+    def work(tx, title_):
+        return tx.run(
+            "MATCH (m:Movie {title: $title}) "
+            "SET m.votes = coalesce(m.votes, 0) - 1;",
+            {"title": title_}
+        ).consume()
+
+    db = get_db()
+    summary = db.write_transaction(work, title)
+    updates = summary.counters.properties_set
+
+    db.close()
+
+    return Response(dumps({"updates": updates}), mimetype="application/json")
+
 
 if __name__ == "__main__":
     logging.root.setLevel(logging.INFO)

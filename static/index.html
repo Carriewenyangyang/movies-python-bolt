@@ -70,7 +70,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="panel-footer"><button id="vote">Vote</button></div>
+            <div class="panel-footer"><button id="vote">Vote</button><span> </span><button id="cancel">Cancel</button></div>
         </div>
     </div>
 </div>
@@ -99,6 +99,11 @@
                             .unbind("click")
                             .click(function () {
                                 voteInMovie(data.title)
+                            });
+                        $("#cancel")
+                            .unbind("click")
+                            .click(function () {
+                                cancelInMovie(data.title)
                             })
                     }, "json");
             return false;
@@ -126,6 +131,12 @@
 
         function voteInMovie(title) {
             $.post("/movie/" + encodeURIComponent(title) + "/vote", () => {
+                search(false);
+                showMovie(title);
+            });
+        }
+        function cancelInMovie(title) {
+            $.post("/movie/" + encodeURIComponent(title) + "/cancel", () => {
                 search(false);
                 showMovie(title);
             });
