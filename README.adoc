@@ -1,6 +1,6 @@
 === New feature: cancel button for minusing vote.
 The image shows that we add a new button called cancel which users can use for minusing vote number.
-image::https://raw.githubusercontent.com/Carriewenyangyang/movies-python-bolt/main/images/cancel-button.png
+image::https://raw.githubusercontent.com/Carriewenyangyang/movies-python-bolt/main/images/cancel-button.png[float=right,width=400]
 
 == Neo4j Movies Application: Quick Start
 
